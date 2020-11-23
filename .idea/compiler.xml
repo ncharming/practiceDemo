@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="spring-data-jpa" />
+        <module name="think-in-Algorithm" />
+        <module name="springboot-jsp-html" />
+        <module name="think-in-JavaConcurrent" />
+        <module name="think-in-Collections" />
+        <module name="think-in-PatternDesign" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="spring-data-jpa" target="1.8" />
+      <module name="Spring-Data-Jpa" target="1.8" />
+      <module name="springboot-jsp-html" target="1.8" />
+      <module name="springboot-jsp-thymeleaf" target="1.8" />
+      <module name="think-in-Algorithm" target="1.8" />
+      <module name="think-in-Collections" target="1.8" />
+      <module name="think-in-javaBasics" target="1.8" />
+      <module name="think-in-JavaConcurrent" target="1.8" />
+      <module name="think-in-PatternDesign" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="spring-data-jpa" options="-parameters" />
+      <module name="springboot-jsp-html" options="-parameters" />
+      <module name="springboot-jsp-thymeleaf" options="-parameters" />
+    </option>
+  </component>
+</project>

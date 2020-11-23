@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Jpa/Jpa.iml" filepath="$PROJECT_DIR$/Jpa/Jpa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/practiceDemo.iml" filepath="$PROJECT_DIR$/.idea/practiceDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-data-jpa/spring-data-jpa.iml" filepath="$PROJECT_DIR$/spring-data-jpa/spring-data-jpa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-jsp-html/springboot-jsp-html.iml" filepath="$PROJECT_DIR$/springboot-jsp-html/springboot-jsp-html.iml" />
+      <module fileurl="file://$PROJECT_DIR$/think-in-Algorithm/think-in-Algorithm.iml" filepath="$PROJECT_DIR$/think-in-Algorithm/think-in-Algorithm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/think-in-Collections/think-in-Collections.iml" filepath="$PROJECT_DIR$/think-in-Collections/think-in-Collections.iml" />
+      <module fileurl="file://$PROJECT_DIR$/think-in-JavaConcurrent/think-in-JavaConcurrent.iml" filepath="$PROJECT_DIR$/think-in-JavaConcurrent/think-in-JavaConcurrent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/think-in-PatternDesign/think-in-PatternDesign.iml" filepath="$PROJECT_DIR$/think-in-PatternDesign/think-in-PatternDesign.iml" />
+      <module fileurl="file://$PROJECT_DIR$/think-in-JavaBasics/think-in-javaBasics.iml" filepath="$PROJECT_DIR$/think-in-JavaBasics/think-in-javaBasics.iml" />
+    </modules>
+  </component>
+</project>

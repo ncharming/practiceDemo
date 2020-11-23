@@ -1,0 +1,419 @@
+ <!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/static/common/layui/css/layui.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/static/common/css/common.css}" />
+		<script th:src="@{/static/common/layui/layui.all.js}" type="text/javascript" charset="utf-8"></script>
+		<script th:src="@{/static/common/js/jquery-3.4.1.min.js}" type="text/javascript" charset="utf-8"></script>
+
+	<!--	<link rel="stylesheet" type="text/css" href="/common/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/common/css/common.css" />
+		<script src="/common/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/common/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>-->
+
+
+		<title>数据源管理</title>
+		<style>
+			.list{
+				width: 100%;
+				clear: both;
+				height: 35px;
+				margin-bottom: 15px;
+			}
+			.info{
+				width: 20%;
+				text-align: right;
+			}
+			.text{
+				margin-left: 3%;
+				width: 70%;
+			}
+			.dian{
+				color: red;
+			}
+			.bg-input{
+				background-color: #F5F5F5;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="box">
+			<div class="from_box">
+				<div class="lf">
+					<label class="layui-form-label">用户名</label>
+					<div class="layui-input-inline">
+						<input id="databaseName" type="text" placeholder="用户名" class="layui-input">
+					</div>
+				</div>
+				<div class="lf">
+					<form class="layui-form" action="">
+						<div class="layui-inline">
+							<label class="layui-form-label">状态:</label>
+							<div class="layui-input-inline" style="width: 180px;">
+								<select id="status" name="interest" lay-filter="aihao1">
+									<option value="">全部</option>
+									<option value="1">有效</option>
+									<option value="0">失效</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="lf" style="margin-left: 15px;"><button onclick="select()" class="layui-btn layui-btn-dangers layui-btn layui-btn-sm">查询</button></div>
+				<div class="lf" style="margin-left: 15px;" id="addBtn"><button class="layui-btn layui-btn-dangers layui-btn layui-btn-sm">新增</button></div>
+			</div>
+			<div class="clear" style="margin-top: 0px;">
+				<div class="table">
+					<table id="tableTarget2" lay-filter="demo"></table>
+				</div>
+			</div>
+		</div>
+		<!--弹框-->
+		<div id="alertTabe" style="display: none;">
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>数据库类型:
+				</div>
+				<div class="lf text">
+					<form class="layui-form" action="">
+						<div class="layui-inline" style="width: 100%;">
+							<div class="layui-input-inline" style=" width:100%">
+								<select  id="type" name="interest" lay-filter="databaseType"  >
+									<option value="" selected></option>
+									<option value="0">oracle</option>
+									<option value="1">mysql</option>
+									<option value="2">xcloud</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian" >*</span>驱动名称:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  readonly="true" id="driverType" type="text" placeholder="驱动名称" class="layui-input bg-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>URL:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  type="text" id="url" placeholder="输入URL" class="layui-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>用户名:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  type="text" id="username" placeholder="用户名" class="layui-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>密码:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  type="text" id="password" placeholder="输入明文密码" class="layui-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<button id="saveDatabase" class="layui-btn layui-btn-dangers layui-btn layui-btn-sm">确定</button>
+<!--				<button id="qd" disabled="disabled" class="layui-btn layui-btn-primary layui-btn layui-btn-sm">确定</button>-->
+				<button id="qx" class="layui-btn layui-btn-dangers layui-btn layui-btn-sm">取消</button>
+			</div>
+		</div>
+		<!--修改数据源-->
+		<div id="alertTabe1" class="layui-form" lay-filter="layui-from-data"  style="display: none;">
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>数据库类型:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  readonly="true" id="upType" type="text" value="数据库类型" class="layui-input bg-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>驱动名称:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  readonly="true" id="upDriver" type="text" value="驱动名称" class="layui-input bg-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>URL:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  readonly="true" id="upUrl" type="text" value="URL" class="layui-input bg-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>用户名:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  readonly="true" id="upId" type="text" value="Id" class="layui-input bg-input" style="width: 100%;display: none">
+						<input  readonly="true" id="upName" type="text" value="用户名" class="layui-input bg-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<div class="lf info">
+					<span class="dian">*</span>密码:
+				</div>
+				<div class="lf text">
+					<div class="layui-input-inline" style="width: 100%;">
+						<input  type="text" id="upPwd" placeholder="输入明文密码" class="layui-input" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="list">
+				<button id="updateDatebase" class="layui-btn layui-btn-dangers layui-btn layui-btn-sm">确认</button>
+				<button id="qx1" class="layui-btn layui-btn-dangers layui-btn layui-btn-sm">取消</button>
+			</div>
+		</div>
+		<script type="text/html" id="barDemo">
+			{{#  if(d.FLAG == 1){ }}
+		  <a class="layui-btn layui-btn-xs layui-btnss" lay-event="edit">修改</a>
+		  <a class="layui-btn layui-btn-xs layui-btnss" lay-event="del">删除</a>
+			{{# } }}
+		</script>
+	</body>
+	<script type="text/javascript">
+		//查询按钮
+		function select() {
+			table1();
+		}
+
+		//新增二级联动
+		var form = layui.form;
+		form.on('select(databaseType)', function(){ //no是那个lay-filter的值
+			// var nos=$("#databaseType").val();//获得选中的option的值
+			var type=$("#type").val();
+			let typeName=$("#type").find("option:selected").text();
+			if(type==0)
+			{$("#driverType").val("oracle.jdbc.driver.OracleDriver");}
+			if(type==1)
+			{$("#driverType").val("com.mysql.jdbc.Driver");}
+			if(type==2)
+			{$("#driverType").val("com.bonc.xcloud.jdbc.XCloudDriver");}
+
+		});
+		$(function() {
+			//下拉框
+			var form = layui.form;
+			form.render();
+			//新增按钮
+			$("#addBtn").click(function () {
+				alertTable("新增数据源");
+			});
+			//初始化表格
+			table1();
+			// 新增弹框确定
+			$("#saveDatabase").click(function () {
+				var url = "/security-discovery/database/addDatabase";
+				var params = {
+					"driver":   $("#driverType").val(),
+					"url": 		$("#url").val(),
+					"username": $("#username").val(),
+					"password": $("#password").val(),
+					"dateType": $("#type").find("option:selected").text(),
+				};
+				$.ajax({
+					type: "post",
+					url: url,
+					data: params,
+					success: function (data) {
+						if(data.code==0){
+							alert(data.message);
+						}else {
+							alert(data.message);
+							$("#alertTabe").hide();
+							layer.closeAll();
+							table1();
+						}
+					}
+				});
+
+			});
+			$("#qx").click(function () {
+				$("#alertTabe").hide();
+				layer.closeAll();
+			});
+			//修改弹框表格
+			$("#updateDatebase").click(function () {
+				var url = "/security-discovery/database/updateDatabase";
+				var params = {
+					'id':$("#upId").val(),
+					'type':$("#upType").val(),
+					'driver':$("#upDriver").val(),
+					'url':$("#upUrl").val(),
+					'name':$("#upName").val(),
+					'password':$("#upPwd").val()
+				};
+				$.ajax({
+					type: "post",
+					url: url,
+					data: params,
+					success: function (data) {
+						alert(data.message);
+						// layer.close(index);
+						table1();
+					}
+				});
+
+				$("#alertTabe1").hide();
+				layer.closeAll();
+			});
+			$("#qx1").click(function () {
+				$("#alertTabe1").hide();
+				layer.closeAll();
+			});
+		});
+		function table1() {
+			var table = layui.table;
+			table.render({
+				elem: '#tableTarget2',
+				url:'/security-discovery/database/showDatabaseList',
+				id: 'tableTarget2',
+				where: { username: $("#databaseName").val(),
+						status: $("#status").val()
+					},
+				limit: "10",
+				height: 420,
+				page: true,
+				cols: [
+					[ //标题栏
+						{
+							field: 'INFO_ID',
+							hide:true,
+							style:'display:none;'
+						},{
+							field: 'DATABASE_TYPE',
+							title: '数据库类型',
+							width:120,
+							fixed: 'left'
+						}, {
+						field: 'DRIVER_CLASS_NAME',
+						width:235,
+						title: '驱动名称'
+					}, {
+						field: 'URL',
+						width:330,
+						title: 'URL'
+					}, {
+						field: 'USERNAME',
+						width:145,
+						title: '用户名'
+					},{
+						field: 'FLAG',
+						title: '状态',
+						width:145,
+						hide:true,
+						style:'display:none;'
+					},{
+						field: 'STATUS',
+						width:145,
+						title: '状态'
+					}, {
+						field: 'LOGIN_NAME',
+						title: '操作人'
+					}, {
+						field: 'OPERATE_TIME',
+						title: '操作时间'
+					}, {
+						title: '操作',
+						toolbar: '#barDemo'
+					}
+					]
+				]
+			});
+		}
+		var table = layui.table;
+		table.on('tool(demo)', function (obj) {
+			var data = obj.data;
+			if (obj.event === 'del') {
+				layer.open({
+					title: '删除',
+					content: '是否删除此条数据？',
+					btnAlign: 'c',  //按钮居中显示
+					btn: ['确定', '取消'],
+					btn1: function (index, layero) {
+						var url = "/security-discovery/database/deleteDatabase";
+						var params = {
+							'id': data.INFO_ID
+						};
+						$.ajax({
+							type: "post",
+							url: url,
+							data: params,
+							success: function (data) {
+								alert(data.message);
+								layer.close(index);
+								table1();
+							}
+						});
+					},
+					btn2: function (index, layero) {
+						layer.close(index);
+					}
+				});
+			} else if (obj.event === 'edit') {
+				layer.open({
+					type: 1,
+					closeBtn: 0,
+					shade: 0.8,
+					title: "修改数据源",
+					area: ['60%', '380px'],
+					content: $('#alertTabe1'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+				});
+				showList(obj);
+			}
+		});
+		function showList(obj) {
+			$("#upId").val(obj.data.INFO_ID),
+			$("#upType").val(obj.data.DATABASE_TYPE),
+			$("#upDriver").val(obj.data.DRIVER_CLASS_NAME),
+			$("#upUrl").val(obj.data.URL),
+			$("#upName").val(obj.data.USERNAME)
+		}
+		function alertTable(texts) {
+			layer.open({
+				type: 1,
+				shade: 0.8,
+				closeBtn: 0,
+				title: texts,
+				area: ['60%', '380px'],
+				content: $('#alertTabe'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+			});
+		}
+	</script>
+
+</html>

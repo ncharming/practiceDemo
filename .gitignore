@@ -1,0 +1,7 @@
+# Project exclude paths
+/Jpa/src/target/
+/think-in-Algorithm/target/
+/think-in-Collections/target/
+/think-in-JavaBasics/target/
+/think-in-JavaConcurrent/target/
+/think-in-PatternDesign/target/
