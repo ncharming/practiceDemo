@@ -19,12 +19,30 @@ public class RedisOperationTest {
     private RedisOprationUtils redisOprationUtils;
 
     @RequestMapping("/setstring")
-    public void testController(){
+    public void setstring(){
         redisOprationUtils.setString();
     }
     @RequestMapping("/getstring")
     public void getString(){
         redisOprationUtils.getString();
+    }
+
+    @RequestMapping("/sethash")
+    public void sethash(){
+        redisOprationUtils.sethash();
+    }
+    @RequestMapping("/gethash")
+    public void gethash(){
+        redisOprationUtils.gethash();
+    }
+
+    @RequestMapping("/setlist")
+    public void setlist(){
+        redisOprationUtils.setlist();
+    }
+    @RequestMapping("/getlist")
+    public void getlist(){
+        redisOprationUtils.getlist();
     }
 
 
