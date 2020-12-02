@@ -45,6 +45,23 @@ public class RedisOperationTest {
         redisOprationUtils.getlist();
     }
 
+    @RequestMapping("/setset")
+    public void setset(){
+        redisOprationUtils.setset();
+    }
+    @RequestMapping("/getset")
+    public void getset(){
+        redisOprationUtils.getset();
+    }
 
+
+    @RequestMapping("/setZset")
+    public void setZset(){
+        redisOprationUtils.setZset();
+    }
+    @RequestMapping("/getZset")
+    public void getZset(){
+        redisOprationUtils.getZset();
+    }
 
 }
