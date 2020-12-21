@@ -10,7 +10,7 @@ import redis.clients.jedis.Jedis;
  */
 public class ConnectRedisTest {
     public static void main(String[] args) {
-        String ip = "192.168.177.129";//虚拟机的IP地址
+        String ip = "192.168.88.128";//虚拟机的IP地址
         int port = 6379;
         Jedis jedis = new Jedis(ip, port);
         jedis.auth("123456");
