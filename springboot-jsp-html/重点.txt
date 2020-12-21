@@ -1,8 +1,0 @@
-为啥 SpringBoot 整合 Jsp 通过 main 不能访问 Jsp页面，
-解决方法：
-
-1.https://segmentfault.com/a/1190000009785247
-
-2.在 Edit Configurations 中的 working directory 中写上
-$MODULE_WORKING_DIR$
-此时，可以直接 main 启动
